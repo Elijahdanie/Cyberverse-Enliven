@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74bb988ee063e5d4fabfa29c92b56642, type: 3}
+  m_Name: Telephone
+  m_EditorClassIdentifier: 
+  type: 5
+  prefabs:
+  - {fileID: 2060727592666617718, guid: f50a091c64b97974ab82a355f534106a, type: 3}
+  icon: {fileID: 21300000, guid: e3ac98c7b179e7b4b937034cc51b3f1b, type: 3}

@@ -1,4 +1,5 @@
 
+using Cyberverse.EventSystem;
 using Cyberverse.Interactables;
 using Cyberverse.Peripherals;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace Cyberverse.Users
 
         void Start()
         {
+            userData = EventManager.main.GetData();
             speakerBehaviour.Init(userData.speaker);
             micBehaviour.Init(userData.mic);
         }

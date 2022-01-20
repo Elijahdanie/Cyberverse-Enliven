@@ -1,11 +1,8 @@
 ﻿
-
 using Cyberverse.Interactables;
 using Cyberverse.Interactables.UI;
 using Cyberverse.Users;
-using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Cyberverse.EventSystem
 {

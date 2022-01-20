@@ -1,9 +1,8 @@
 ﻿
 
-using Cyberverse.Audio_Objects;
-using Cyberverse.Interactables;
+
+using Cyberverse.AvatarConfiguration.Utility;
 using Cyberverse.Peripherals.Data;
-using UnityEngine;
 
 namespace Cyberverse.Users
 {
@@ -21,11 +20,12 @@ namespace Cyberverse.Users
     }
 
     [System.Serializable]
-    public struct UserData : IStorable
+    public class UserData : IStorable
     {
         public string uuid;
         public Mic mic;
         public Speaker speaker;
+        public AvatarConfig avatar;
         public float moveSpeed;
         public float RotateSpeed;
 
