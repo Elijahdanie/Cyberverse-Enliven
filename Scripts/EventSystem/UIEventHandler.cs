@@ -21,8 +21,13 @@ namespace Cyberverse.EventSystem
                 EventManager.main.OnFocusInteraction.AddListener(OnFocusInteraction);
                 EventManager.main.OnExitInteraction.AddListener(OnExitInteraction);
                 EventManager.main.OnUserInteract.AddListener(OnUserInteract);
-                user = userClient;
+                EventManager.main.OnAnnounceUser.AddListener(OnAnnounceUser);
             }
+        }
+
+        public void OnAnnounceUser(IUser user)
+        {
+            this.user = user;
         }
 
         public void Interact() {

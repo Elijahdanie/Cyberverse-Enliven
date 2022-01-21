@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2908125660682311152}
   - component: {fileID: 6727728077494192431}
   - component: {fileID: 7625035153407339909}
+  - component: {fileID: 8718282113345728791}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -98,3 +99,16 @@ MonoBehaviour:
   Id: 0
   iconPreview: {fileID: 21300000, guid: b6b68c8c37d5cf1419267a80c426ac83, type: 3}
   description: This is the body
+--- !u!65 &8718282113345728791
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7625035153407339908}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.12436, y: 1.124361, z: 3.037138}
+  m_Center: {x: 0.006251991, y: 0.013387502, z: -0.010501684}

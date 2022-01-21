@@ -45,7 +45,7 @@ namespace Cyberverse.Interactables
         internal IInteractable currentInteractable;
         internal IInteractable previewInteractable;
 
-        private void Start()
+        public void Init()
         {
             user = GetComponentInParent<IUser>();
             if (user == null)

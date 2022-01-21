@@ -2,6 +2,9 @@
 using Cyberverse.AvatarConfiguration.UI;
 using Cyberverse.AvatarConfiguration.Utility;
 using Cyberverse.EventSystem;
+using Cyberverse.Interactables;
+using Cyberverse.Peripherals;
+using Cyberverse.Users;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -33,7 +36,7 @@ namespace Cyberverse.AvatarConfiguration
             }
         }
 
-        private void Start()
+        public void OpenConfiguration()
         {
             EventManager.main.OnSelectConfiguration.AddListener(OnSelectConfiguration);
             nodeListmap = nodeList.ToDictionary(x => x.type, x => x);
@@ -72,7 +75,14 @@ namespace Cyberverse.AvatarConfiguration
 
         public CyberNodePrefab GetPrefab(AvatarConfig avatar, ComponentType type, out bool isIn)
         {
+            nodeListmap[type].Init();
+            Debug.Log(avatar.nodes);
+            for (int i = 0; i < avatar.nodes.Count; i++)
+            {
+                Debug.Log(avatar.nodes.ElementAt(i));
+            }
             var tmp = nodeListmap[type].GetNode(avatar.nodes[type].Id, out bool check);
+            Debug.Log(type);
             if (check)
             {
                 isIn = true;
@@ -88,9 +98,9 @@ namespace Cyberverse.AvatarConfiguration
         public Dictionary<ComponentType, CyberNodePrefab> GetNodes(AvatarConfig avatar)
         {
             var tmp = new Dictionary<ComponentType, CyberNodePrefab>();
-            for (int i = 0; i < avatar.components.Count; i++)
+            for (int i = 0; i < avatar.nodes.Count; i++)
             {
-                var tmp2 = GetPrefab(avatar, avatar.components[i].type, out bool isIn);
+                var tmp2 = GetPrefab(avatar, avatar.nodes.ElementAt(i).Value.type, out bool isIn);
                 if (isIn)
                 {
                     tmp.Add(tmp2.type, tmp2);
@@ -102,6 +112,21 @@ namespace Cyberverse.AvatarConfiguration
         private void OnSelectConfiguration(CyberNodePrefab arg0)
         {
             currentCharacterConfigured.Change(arg0);
+        }
+
+        public void Deploy() {
+            var player = currentCharacterConfigured.gameObject.AddComponent<UserClient>();
+            player.userData = EventManager.main.GetData();
+            var allnodes = player.GetComponentsInChildren<CyberNodePrefab>();
+            foreach (var item in allnodes)
+            {
+                Destroy(item);
+            }
+            Destroy(currentCharacterConfigured);
+            player.Init();
+            var rb = player.gameObject.AddComponent<Rigidbody>();
+            rb.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX;
+            EventManager.main.OnAnnounceUser.Invoke(player);
         }
 
     }

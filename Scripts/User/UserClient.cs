@@ -13,9 +13,12 @@ namespace Cyberverse.Users
         public SpeakerBehaviour speakerBehaviour;
         public MicBehaviour micBehaviour;
 
-        void Start()
+        public void Init()
         {
-            userData = EventManager.main.GetData();
+            micBehaviour = GetComponentInChildren<MicBehaviour>();
+            speakerBehaviour = GetComponentInChildren<SpeakerBehaviour>();
+            interactHelper = GetComponentInChildren<InteractHelper>();
+            interactHelper.Init();
             speakerBehaviour.Init(userData.speaker);
             micBehaviour.Init(userData.mic);
         }

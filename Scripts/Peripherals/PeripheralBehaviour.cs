@@ -7,19 +7,16 @@ namespace Cyberverse.Peripherals
 {
     public class PeripheralBehavour<T> : MonoBehaviour where T : IPeripheral
     {
-        public Material micMat;
-        public Color isOnColor;
-        public Color isOffColor;
         public bool isOn => data.isOn;
         [SerializeField] public T data;
         public virtual void Init(T data)
         {
-            micMat.color = data.isOn ? isOnColor : isOffColor;
+            gameObject.SetActive(data.isOn);
         }
 
         public virtual void On()
         {
-            micMat.color = isOnColor;
+            gameObject.SetActive(true);
             data.isOn = true;
         }
 
@@ -37,7 +34,7 @@ namespace Cyberverse.Peripherals
 
         public virtual void Off()
         {
-            micMat.color = isOffColor;
+            gameObject.SetActive(false);
             data.isOn = false;
         }
     }

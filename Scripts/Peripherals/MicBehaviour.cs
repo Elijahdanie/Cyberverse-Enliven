@@ -19,6 +19,7 @@ namespace Cyberverse.Peripherals
             if (Microphone.devices.Length > 0)
             {
                 selectedDevice = Microphone.devices[data.deviceId].ToString();
+                _audioSource = GetComponent<AudioSource>();
                 _audioSource.clip = Microphone.Start(selectedDevice, true, 10, AudioSettings.outputSampleRate);
                 _audioSource.Play();
             }

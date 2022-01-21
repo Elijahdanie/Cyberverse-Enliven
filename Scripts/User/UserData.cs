@@ -3,6 +3,8 @@
 
 using Cyberverse.AvatarConfiguration.Utility;
 using Cyberverse.Peripherals.Data;
+using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Cyberverse.Users
 {
@@ -12,15 +14,9 @@ namespace Cyberverse.Users
         void EngageInteractable();
     }
 
-    public interface IStorable
-    {
-        void Save();
-        void Load();
-        void Delete();
-    }
 
     [System.Serializable]
-    public class UserData : IStorable
+    public class UserData
     {
         public string uuid;
         public Mic mic;
@@ -29,19 +25,25 @@ namespace Cyberverse.Users
         public float moveSpeed;
         public float RotateSpeed;
 
-        public void Delete()
+
+        public static void Delete(string datakey, UserData data)
         {
 
         }
 
-        public void Load()
+        public static UserData Load(string datakey)
         {
-
+            var data = PlayerPrefs.GetString(datakey);
+            Debug.Log(data);
+            UserData d = JsonConvert.DeserializeObject<UserData>(data);
+            return d;
         }
 
-        public void Save()
+        public static void Save(string dataKey, UserData data)
         {
-
+            var d = JsonConvert.SerializeObject(data);
+            Debug.Log(d);
+            PlayerPrefs.SetString(dataKey, d);
         }
     }
 }
