@@ -15,7 +15,7 @@ namespace Cyberverse.AvatarConfiguration.UI
         public TMP_Text description;
         public Button btn;
         public Image preview;
-        internal ComponentType id;
+        public string id;
         CyberNodePrefab cyber;
 
         public void Init(string text, UnityAction action, Sprite icon)

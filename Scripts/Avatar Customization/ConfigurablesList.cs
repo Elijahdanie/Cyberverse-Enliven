@@ -9,9 +9,9 @@ namespace Cyberverse.AvatarConfiguration
     [CreateAssetMenu(fileName = "new config list", menuName = "cerate new config list")]
     public class ConfigurablesList : ScriptableObject
     {
-        public ComponentType type;
         public List<CyberNodePrefab> prefabs = new List<CyberNodePrefab>();
         public Sprite icon;
+        public string Name;
 
         public void Init() {
             int num = 0;

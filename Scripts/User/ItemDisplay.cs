@@ -1,4 +1,5 @@
 ﻿using Cyberverse.Audio_Objects;
+using Cyberverse.EventSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +21,26 @@ namespace Cyberverse.Interactables.UI
 
         public void Dispaly(Transform parent, IInteractable interactable)
         {
-            var info = interactable.Format();
-            title.text = info.Title;
-            otherData.text = info.FormattedText;
-            info.functions.ForEach(x =>
+            if (!gameObject.activeInHierarchy)
             {
-                Instantiate(prefab, buttonParent).Display(x);
-            });
-            gameObject.SetActive(true);
+                var info = interactable.Format();
+                title.text = info.Title;
+                otherData.text = info.FormattedText;
+                info.functions.ForEach(x =>
+                {
+                    Instantiate(prefab, buttonParent).Display(x);
+                });
+                gameObject.SetActive(true);
+            }
+        }
+
+        public void Clean()
+        {
+            for (int i = 0; i < buttonParent.childCount; i++)
+            {
+                Destroy(buttonParent.GetChild(i).gameObject);
+            }
+            gameObject.SetActive(false);
         }
     }
 

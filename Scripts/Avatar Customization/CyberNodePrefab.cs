@@ -10,7 +10,7 @@ namespace Cyberverse.AvatarConfiguration
 {
     public class CyberNodePrefab : MonoBehaviour
     {
-        public ComponentType type;
+        public string Name;
         public int Id;
         public Sprite iconPreview;
         public string description;

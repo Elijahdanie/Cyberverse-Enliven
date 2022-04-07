@@ -11,6 +11,7 @@ namespace Cyberverse.Users
 
     public interface IUser
     {
+        Transform transform { get; }
         void EngageInteractable();
     }
 

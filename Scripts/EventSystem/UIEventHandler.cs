@@ -13,7 +13,7 @@ namespace Cyberverse.EventSystem
         public Transform parent;
         public UserClient userClient;
         IUser user;
-
+        public GameObject Pausemenu;
         private void Start()
         {
             if (EventManager.main)
@@ -22,6 +22,7 @@ namespace Cyberverse.EventSystem
                 EventManager.main.OnExitInteraction.AddListener(OnExitInteraction);
                 EventManager.main.OnUserInteract.AddListener(OnUserInteract);
                 EventManager.main.OnAnnounceUser.AddListener(OnAnnounceUser);
+                EventManager.main.OnCloseContextMenu.AddListener(CloseItemDisplay);
             }
         }
 
@@ -33,6 +34,10 @@ namespace Cyberverse.EventSystem
         public void Interact() {
             if(interactNotification.activeInHierarchy)
                 user.EngageInteractable();
+        }
+
+        public void CloseItemDisplay() {
+            itemDisplay.Clean();
         }
 
         private void OnUserInteract(IUser arg0, IInteractable arg1)
@@ -56,6 +61,10 @@ namespace Cyberverse.EventSystem
             if (Input.GetKey(KeyCode.Space))
             {
                 Interact();
+            }
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                Pausemenu.SetActive(!Pausemenu.activeInHierarchy);
             }
         }
     }

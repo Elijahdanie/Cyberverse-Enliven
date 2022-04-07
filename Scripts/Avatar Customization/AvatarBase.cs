@@ -12,23 +12,23 @@ namespace Cyberverse.AvatarConfiguration.Utility
     [System.Serializable]
     public class AvatarConfig
     {
-        public Dictionary<ComponentType, CyberNode> nodes = new Dictionary<ComponentType, CyberNode>();
+        public Dictionary<string, CyberNode> nodes = new Dictionary<string, CyberNode>();
 
         public void Update(CyberNodePrefab prefab)
         {
-            if (nodes.Keys.Contains(prefab.type))
+            if (nodes.Keys.Contains(prefab.Name))
             {
-                CyberNode node = nodes[prefab.type];
+                CyberNode node = nodes[prefab.Name];
                 node.Id = prefab.Id;
-                nodes[prefab.type] = node;
+                nodes[prefab.Name] = node;
             }
         }
 
         internal void SaveNew(CyberNodePrefab prefab)
         {
-            if (!nodes.Keys.Contains(prefab.type))
+            if (!nodes.Keys.Contains(prefab.Name))
             {
-                nodes.Add(prefab.type, new CyberNode() {
+                nodes.Add(prefab.Name, new CyberNode() {
                     Id = prefab.Id
                 });
             }
@@ -43,7 +43,7 @@ namespace Cyberverse.AvatarConfiguration.Utility
 
     [System.Serializable]
     public struct Pivot {
-        public ComponentType type;
+        public string type;
         public Transform transform;
     }
 
@@ -89,14 +89,9 @@ namespace Cyberverse.AvatarConfiguration.Utility
 
     [Serializable]
     public class CyberNode {
-        public ComponentType type;
+        public string type;
         public int Id;
         public CVector4 color;
         public CVector3 pivotPosition;
-    }
-
-
-    public enum ComponentType {
-        Head, Body, LeftHand, RightHand, HeadSet, Telephone
     }
 }

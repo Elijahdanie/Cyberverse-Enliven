@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 namespace Cyberverse.Interactables
 {
+
     public interface IInteractable
     {
         IDisplay display { get; }
@@ -111,4 +112,5 @@ namespace Cyberverse.Interactables
             }
         }
     }
+
 }

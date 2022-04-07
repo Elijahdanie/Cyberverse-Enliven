@@ -15,11 +15,11 @@ namespace Cyberverse.EventSystem
     public class InteractEvent : UnityEvent<IUser, IInteractable> { }
     public class ComponentEvent : UnityEvent<CyberNodePrefab> { }
     public class UserEvent : UnityEvent<IUser> { }
+    public class ConfigurationEvent : UnityEvent<CharacterConfigHandler> { }
     public class EventManager : MonoBehaviour
     {
         public bool isNull;
         public UserData userData;
-
         internal UserData GetData()
         {
             userData = UserData.Load(DataKey);
@@ -42,6 +42,9 @@ namespace Cyberverse.EventSystem
         public InteractableEvent OnExitInteraction = new InteractableEvent();
         public InteractEvent OnUserInteract = new InteractEvent();
         public UserEvent OnAnnounceUser = new UserEvent();
+        public ConfigurationEvent OnAnnounceSkeleton = new ConfigurationEvent();
+        public UnityEvent OnCloseContextMenu = new UnityEvent();
+
         internal void SetDefaultData(AvatarConfig avatar)
         {
             userData = new UserData()
@@ -82,10 +85,15 @@ namespace Cyberverse.EventSystem
             AvatarConfigurationManager.main.OpenConfiguration();
         }
 
-        internal void Save(AvatarConfig avatar)
+        public void Save(AvatarConfig avatar)
         {
             userData.avatar = avatar;
             UserData.Save(DataKey, userData);
+        }
+
+        public void CloseContextMenu()
+        {
+            OnCloseContextMenu.Invoke();
         }
     }
 }

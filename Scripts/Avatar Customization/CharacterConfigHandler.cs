@@ -13,10 +13,11 @@ namespace Cyberverse.AvatarConfiguration
     {
         public AvatarConfig avatar;
         public List<Pivot> pivots = new List<Pivot>();
-        public Dictionary<ComponentType, Transform> nodePivots = new Dictionary<ComponentType, Transform>();
-        public Dictionary<ComponentType, CyberNodePrefab> pool = new Dictionary<ComponentType, CyberNodePrefab>();
+        public Dictionary<string, Transform> nodePivots = new Dictionary<string, Transform>();
+        public Dictionary<string, CyberNodePrefab> pool = new Dictionary<string, CyberNodePrefab>();
         public float rotSpeed;
         public Transform conatainer;
+        public bool configEnabled;
 
         public void LoadUser()
         {
@@ -38,17 +39,17 @@ namespace Cyberverse.AvatarConfiguration
 
         private AvatarConfig GenerateDefault()
         {
-            Dictionary<ComponentType, CyberNode> nodes = new Dictionary<ComponentType, CyberNode>();
+            Dictionary<string, CyberNode> nodes = new Dictionary<string, CyberNode>();
             for (int i = 0; i < AvatarConfigurationManager.main.nodeList.Count; i++)
             {
-                var type = ((ComponentType)i);
-                if (nodePivots.Keys.Contains(type))
+                var b = AvatarConfigurationManager.main.nodeList[i].Name;
+                if (nodePivots.Keys.Contains(b))
                 {
-                    nodes.Add(type, new CyberNode()
+                    nodes.Add(b, new CyberNode()
                     {
-                        type = (ComponentType)i,
+                        type = AvatarConfigurationManager.main.nodeList[i].Name,
                         Id = 0,
-                        pivotPosition = new CVector3().Set(nodePivots[type].position)
+                        pivotPosition = new CVector3().Set(nodePivots[b].position)
                     });
                 }
             }
@@ -58,13 +59,13 @@ namespace Cyberverse.AvatarConfiguration
             });
         }
 
-        public void Build(Dictionary<ComponentType, CyberNodePrefab> map, bool isnew)
+        public void Build(Dictionary<string, CyberNodePrefab> map, bool isnew)
         {
             foreach (var item in map)
             {
                 var nodeprefab = Instantiate(item.Value, conatainer);
                 nodeprefab.transform.localPosition = nodePivots[item.Key].transform.localPosition;
-                    //avatar.nodes[item.Value.type].pivotPosition.Get();
+                //avatar.nodes[item.Value.type].pivotPosition.Get();
                 pool.Add(item.Key, nodeprefab);
                 if (isnew)
                 {
@@ -77,16 +78,20 @@ namespace Cyberverse.AvatarConfiguration
         internal void Change(CyberNodePrefab arg0)
         {
             avatar.Update(arg0);
-            var oldone = pool[arg0.type];
+            var oldone = pool[arg0.Name];
             Destroy(oldone.gameObject);
             var node = Instantiate(arg0, transform);
-            node.transform.localPosition = nodePivots[arg0.type].transform.localPosition;
-            pool[arg0.type] = node;
+            node.transform.localPosition = nodePivots[arg0.Name].transform.localPosition;
+            pool[arg0.Name] = node;
             EventManager.main.Save(avatar);
         }
 
-        void Update() {
-            transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime);
+        void Update()
+        {
+            if (configEnabled)
+            {
+                transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime);
+            }
         }
     }
 }
